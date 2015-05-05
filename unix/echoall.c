@@ -16,10 +16,15 @@
  * =====================================================================================
  */
 #include "apue.h"
-#include <stdlib.h>
-#include <stdio.h>
-int main()
+int main ( int argc, char *argv[] )
 {
-	fputs("hello\n world!",stdout);
-	return 0;
-}
+	int i;
+	char **ptr;
+	extern char **environ;
+	for(i=0;i<argc;i++)
+		printf("argv[%d]=%s\n",i,argv[i]);
+	for(ptr=environ;*ptr!=0;ptr++)
+		printf("environ=%s\n",*ptr);
+	exit(0);
+	exit(0);	
+}				
