@@ -11,19 +11,20 @@
 #include <signal.h>
 #include <errno.h>
 
-#define SIGBAD(signo) ((signo)<=0||(signo)>=NSIS)  //信号不合范围
+//#define SIGBAD(signo) ((signo)<=0||(signo)>=NSIG)  //信号不合范围
 
-int sigaddset(signal_t *set,int signo)
+#define SIGBAD(signo) ((signo)<=0)  //信号不合范围
+int sigaddset(sigset_t *set,int signo)
 {
 	if(SIGBAD(signo))
 	{
 		errno=EINVAL;
-		return(-1)
+		return(-1);
 	}
-	*set |=1<<(signo-1);
+	*set |=1<<(signo-1);//该处运行错误，原因不明
 	return(0);
 }
-int sigdelset(signal_t *set,int signo)
+int sigdelset(sigset_t *set,int signo)
 {
 	if(SIGBAD(signo))
 	{
@@ -33,7 +34,7 @@ int sigdelset(signal_t *set,int signo)
 	*set &=~(1<<(signo-1));
 	return(0);
 }
-int sigismenber(signal_t* set,int signo)
+int sigismenber(sigset_t* set,int signo)
 {
 	if(SIGBAD(signo))
 	{
