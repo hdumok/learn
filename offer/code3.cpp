@@ -97,41 +97,100 @@ void RepalceBlank2(char array[],char* str)
 			array[newlength--]=array[oldlength--];
 	}
 }
-/*把字符串里的每个str1换成str2三个字符，关键在于先确定空间，从后往前移动 */
-void Repalce(char* str,char str1,char str2)
+/*把字符串里的每个str1换成str2，关键在于先确定空间，从后往前移动 */
+//返回替换后的字符串
+char* Repalce(char* str,char* old_str,char* new_str)
 {
-	if(str=NULL||str1=NULL)
+	if(str==NULL||old_str==NULL||new_str==NULL)
 		return;
-	int length=strlen(str);
-	int length1=strlen(str1);
-	int length2=strlen(str2);
-	char* p=str;
-	char* s=str1;
-	int num=0;
-	while(p!=NULL)
-	{
-	/*	while(*p==*s)
-			p++,s++;
-		if(s==NULL)
-			num++,p+=length1;
-		else
-			s=str1;
-	*/
-		if(strncmp(p,str1,length1)==0)
-			num++,p+=length1;
-		else
-			p++;
-	}
+	int len=strlen(str);
+	int old_len=strlen(old_str);
+	int new_len=strlen(new_str);
 
-	
-	if(length1>length2)//如果是原串比较长，不用分配内存
+	/*获取每个旧子串的偏移位置 */
+	vector<int> num;
+	int  n=0;
+	while(n<=len-old_len)
 	{
-		
+		if(strncmp(str+n,old_str,old_len)==0)
+		{
+			num.push_back(n);
+			n+=old_len;
+		}
+		else
+			n++;
 	}
-	else(length1<length2)//如果是新串比较长，要分配内存
-	{
-		length=length+num*(length2-length1);
+	if(num.size()==0)
+		return str;
 
-	}
+	int LEN=len+num.size()*new_len-num.size()*old_len;
+	char* STR=new char[LEN+1];
 	
+	int i=0,j=0,k=0;
+	while(str[i]!=NULL)
+	{
+		if(num[k]!=NULL)
+		{
+			if(i!=num[k])
+			{
+				STR[j]=str[i];
+				j++;
+				i++;
+			}
+			else
+			{
+				strncmp(STR+j,new_str,new_len);
+				j+=new_len;
+				i+=old_len;
+			}
+		}
+		else
+			strcpy(STR+j,str+i);
+	}
+	STR[LEN]='\0';
 }
+
+
+
+
+
+
+
+
+
+
+
+/* /	if(old_len>new_len)//如果是原串比较长，不用分配内存
+	{
+	    int i=0,j=0,k=0;
+		while(str[i]!=NULL)
+		{
+			if(num[k]!=NULL&&i==num[k])//i偏移处存在需呀被替换的字符
+			{
+				strncat(str+j,new_str,new_len);//覆盖替换字符串
+				i+=old_len;//原串的偏移
+				j+=new_len;//新串的偏移
+				k++;//标记值数组下标增加
+			}
+			else
+			{
+				str[j]=str[i];
+				i++;
+				j++;
+			}
+		}
+		str[j]='\0';
+	}
+	else(old_len<new_len)//如果是新串比较长，前提是原串后面有足够多的空间
+	{
+		int i=len;
+		int j=len+old.size()*(new_len-old_len);
+		int k=num.size();
+		while(k>=0)
+		{
+			if(j!=num[k]+o
+			str[j]
+		}
+	}
+	
+}*/
