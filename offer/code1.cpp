@@ -53,6 +53,7 @@ MyString::MyString(const char* buf)
 	{
 		m_data=new char[strlen(buf)+1];
 		strcpy(m_data,buf);
+	}
 }
 MyString::MyString& operator=(const MyString& other)
 {
@@ -81,24 +82,24 @@ ostream& operator<<(ostream& os,const MyString& my)
 	os<<my.m_data;
 }	
 
-friend istream& operator>>(istream& is,const MyString& my)
+istream& operator>>(istream& is,const MyString& my)
 {
 	is>>my.m_data;
 }
-friend bool operator<(const MyString& my,const MyString& other)
+bool operator<(const MyString& my,const MyString& other)
 {
 	return(strcmp(my.m_data,other.m_data)<0);	
 }
-friend bool operator>(const MyString& my,const MyString& other)
+bool operator>(const MyString& my,const MyString& other)
 {
 	return(other<my);
 }
 
-friend bool operator==(const MyString& my,const MyString& other)
+bool operator==(const MyString& my,const MyString& other)
 {
 	return(strcmp(my.m_data,other.m_data)==0);
 }
-friend MyString& operator+(const MyString& my,const MyString& other)
+MyString& operator+(const MyString& my,const MyString& other)
 {
 	int length=strlen(my.m_data)+strlen(other.m_data);
     char temp[length+1];

@@ -67,6 +67,7 @@ char* RepalceBlank(char* array,char*str)
 			a++;
 		}
 	}
+	*na='\0';
 	return newarray;
 }
 /*把字符串里的每个空格换成字符串str,假设原字符串后有足够存储空间的做法 */
@@ -97,7 +98,7 @@ void RepalceBlank2(char array[],char* str)
 			array[newlength--]=array[oldlength--];
 	}
 }
-/*把字符串里的每个str1换成str2，关键在于先确定空间，从后往前移动 */
+/*把字符串里的每个str1换成str2，关键在于先确定空间 */
 //返回替换后的字符串
 char* Repalce(char* str,char* old_str,char* new_str)
 {
@@ -125,11 +126,11 @@ char* Repalce(char* str,char* old_str,char* new_str)
 
 	int LEN=len+num.size()*new_len-num.size()*old_len;
 	char* STR=new char[LEN+1];
-	
+	num.push_back(-1);	
 	int i=0,j=0,k=0;
-	while(str[i]!=NULL)
+	while(str[i]!='\0')
 	{
-		if(num[k]!=NULL)
+		if(num[k]!=-1)
 		{
 			if(i!=num[k])
 			{
@@ -149,48 +150,30 @@ char* Repalce(char* str,char* old_str,char* new_str)
 	}
 	STR[LEN]='\0';
 }
-
-
-
-
-
-
-
-
-
-
-
-/* /	if(old_len>new_len)//如果是原串比较长，不用分配内存
+/*打印出字符串所有的排列 */
+void Permutation(char* pStr)
+{
+	if(pStr==NULL)
+		return;
+	Permutation(char* pStr,char* pStr);
+}
+void Permutation(char* pStr,char* pBegin)
+{
+	if(pBegin==NULL)
+		printf("%s",pStr);
+	else
 	{
-	    int i=0,j=0,k=0;
-		while(str[i]!=NULL)
+		for(char* p=pBegin;p!=NULL;p++)
 		{
-			if(num[k]!=NULL&&i==num[k])//i偏移处存在需呀被替换的字符
-			{
-				strncat(str+j,new_str,new_len);//覆盖替换字符串
-				i+=old_len;//原串的偏移
-				j+=new_len;//新串的偏移
-				k++;//标记值数组下标增加
-			}
-			else
-			{
-				str[j]=str[i];
-				i++;
-				j++;
-			}
-		}
-		str[j]='\0';
-	}
-	else(old_len<new_len)//如果是新串比较长，前提是原串后面有足够多的空间
-	{
-		int i=len;
-		int j=len+old.size()*(new_len-old_len);
-		int k=num.size();
-		while(k>=0)
-		{
-			if(j!=num[k]+o
-			str[j]
+			char temp=*p;
+			*p=*pBegin;
+			*pBegin=temp;
+			
+			Permutation(pStr,pBegin+1);
+
+			temp=*p;
+			*p=*pBegin;
+			*pBegin=temp;	
 		}
 	}
-	
-}*/
+}
