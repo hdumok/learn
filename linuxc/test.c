@@ -1,13 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  test.c
 
- *
- *        Version:  1.0
- *        Created:  2015年04月20日 21时51分00秒
- *       Revision:  none
- *       Compiler:  gcc
  *
  *         Author:  YOUR NAME (), 
  *   Organization:  
