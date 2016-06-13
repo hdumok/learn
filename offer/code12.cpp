@@ -30,7 +30,7 @@ void Printf(unsigned int n)
 	memset(num,'0',n);
 	num[n]='\0';
 
-	while(!Increment(num))//如果没有溢出
+	while(!Increment(num))
 	{
 		PrintfNum(num);
 		cout<<" ";

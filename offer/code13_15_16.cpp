@@ -10,20 +10,20 @@
  */
 
 struct ListNode{
-	int value;
-	ListNode* next;
+	int m_value;
+	ListNode* m_next;
 }
 /*O(1)删除节点 */
 void DeleteNode(ListNode** plist,ListNode* pdelete)
 {
 	if(!plist||!pdelete) //如果传入的指向头指针的指针不存在 或 指向要被删除节点的指针不存在
 		return;
-	if(p->next!=NULL)//要被删的节点后还有节点
+	if(p->m_next!=NULL)//要被删的节点后还有节点
 	{
-		ListNode* s=p->next;
+		ListNode* s=p->m_next;
 
-		p->value=s->value;//完全拷贝下一个节点的数据和指针
-		p->next=s->next;
+		p->m_value=s->m_value;//完全拷贝下一个节点的数据和指针
+		p->m_next=s->m_next;
 
 		delete s;
 		s=NULL;
@@ -37,9 +37,9 @@ void DeleteNode(ListNode** plist,ListNode* pdelete)
 	else//如果后面没有节点了，而这又不是唯一节点
 	{
 		ListNode* p=*plist;
-		while(p->next!=pdelete)
-			p=p->next;
-		p->next=pdelete->next;
+		while(p->m_next!=pdelete)
+			p=p->m_next;
+		p->m_next=pdelete->m_next;
 		delete pdelete;
 		pdelete=NULL;
 	}
@@ -51,17 +51,17 @@ ListNode* FindTailK(ListNode* phead,unsigned int k)
 		return NULL;
 	ListNode* pAhead=phead;
 	ListNode* pBebind=phead;
-	for(int i=1;i<k;i++)//执行了K-1次  从指向节点1变成指向节点K
+	for(int i=1;i<k;i++)
 	{
 		if(pAhead!=NULL)
-			pAhead=pAhead->next;
+			pAhead=pAhead->m_next;
 		else
 			return NULL;
 	}
-	while(pAhead->next)
+	while(pAhead->m_next)
 	{
-		pAhead=pAhead->next;
-		pBebind=pBebind->next;
+		pAhead=pAhead->m_next;
+		pBebind=pBebind->m_next;
 	}
 	return pBebind;
 }
@@ -69,58 +69,20 @@ ListNode* FindTailK(ListNode* phead,unsigned int k)
 void ReverseList(ListNode* phead)//假设头节点存在
 {
 	ListNode* pthis,*pafter,*temp;
-	pthis=phead->next;
+	pthis=phead->m_next;
 	if(pthis==NULL)
 		return;
-	pafter=pthis->next;
+	pafter=pthis->m_next;
 	temp=pthis;
 	while(pafter)
 	{
 		pthis=pafter;
-		pafter=pafter->next;
-		pthis->next=temp;
+		pafter=pafter->m_next;
+		pthis->m_next=temp;
 		temp=pthis;
 	}
-	phead->next->next=NULL;
-	phead->next=pthis;
+	phead->m_next->m_next=NULL;
+	phead->m_next=phead;
 }
-void ReverseList(ListNode** phead)//假设头节点不存在
-{
-	ListNode *pthis,*pafter,*temp;
-	pthis=*phead;
-	if(phead==NULL&&*phead)
-		return;
-	temp=pthis;
-	pafter=pthis->next;
-	while(pafter)
-	{
-		pthis=pafter;
-		pafter=pafter->next;
-		pthis->next=temp;
-		temp=pthis;
-	}
-	(*phead)->next=NULL;
-	*phead=pthis;
-}
-/*合并两个排好序的链表 */
-ListNode* MergeList(ListNode* phead1,ListNode* phead2)
-{
-	if(phead1==NULL)
-		return phead2;
-	else if(phead2=NULL)
-		return phead1;
 
-	ListNode* pmerge=NULL;
-	
-	if(phead1->value<phead2->value)
-	{
-		pmerge=phead1;
-		pmerge->next=MergeList(phead1->next,phead2);
-	}
-	else
-	{
-		pmerge=phead2;
-		pmerge->next=MergeList(phead2->next,phead1);
-	}
-	return pmerge;
-}
+
